@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+body,  a {
+    font-family: Montserrat;
+    font-size: 14px;
+    line-height: 33px;
+}
+body, body h1, body h2, body h3, body h4, body h5, body h6, p, span {
+    color: #000000;
+}
+
+#site-top-menu {
+    margin-bottom: 0em;
+}
+#site-top-menu > li {
+    height: 160px;
+    background: #FFFFFF;
+    outline: 0 none;
+    line-height: 70px;
+}
+
+#site-top-menu > li > a {
+    font-size: 18px;
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #000000!important;
+}
+#site-top-menu > li > a > .sf-sub-indicator {
+    font-size: 18px;
+    height: auto;
+    transition: color .2s ease;
+}
+#site-top-menu > li.current > a > .sf-sub-indicator{
+    color: #ff2d2d;
+}
+#site-top-menu > li.sfHover > a > .sf-sub-indicator{
+    color: #ff2d2d;
+}
+#site-top-menu > li.sfHover > a > .menu-title-text:after{
+    border-bottom-color: #ff2d2d;
+    border-bottom-width: 1px;
+}
+#site-top-menu > li > ul.sub-menu{
+    background-color: rgba(255,255,255,100)!important;
+    min-height: 150px;
+    color: #000000;
+}
+#site-top-menu > li > ul.sub-menu > li{
+    background-color: rgba(255,255,255,100)!important;
+    line-height: 22px;
+}
+#site-top-menu > li > ul.sub-menu > li > a{
+    color: #000000;
+}
+#site-top-menu > li > ul.sub-menu > li:hover > a{
+    color: #ff2d2d;
+}

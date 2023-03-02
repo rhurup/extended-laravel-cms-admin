@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+\Illuminate\Support\Facades\Auth::routes();
+
 // Testing endpoint
 Route::group(
     ['prefix' => 'test'],

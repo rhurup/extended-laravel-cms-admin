@@ -1,4 +1,4 @@
-@extends('index')
+@extends('layout.app')
 
 @section('title', $content->title)
 @section('content')

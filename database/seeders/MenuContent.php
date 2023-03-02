@@ -63,6 +63,18 @@ class MenuContent extends Seeder
                 "updated_at" => \Carbon\Carbon::now(),
                 "updated_by" => 1,
             ],
+            [
+                "id" => 5,
+                "parent_id" => 0,
+                "order" => 5,
+                "title" => "Log ind",
+                "icon" => "fa-bars",
+                "uri" => "/login",
+                "created_at" => \Carbon\Carbon::now(),
+                "created_by" => 1,
+                "updated_at" => \Carbon\Carbon::now(),
+                "updated_by" => 1,
+            ],
         ];
 
         \App\Models\Content\Menu::insert($menu_items);

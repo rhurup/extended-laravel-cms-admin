@@ -2,8 +2,8 @@
 
 namespace App\View\Components;
 
-use App\Models\Content\ContentArticles;
-use App\Models\Content\ContentModules;
+use App\Models\Content\Articles;
+use App\Models\Content\Module;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
@@ -28,13 +28,13 @@ class Modules extends Component
         if(in_array($request_path, ['', '/'])){
             $request_path = 'home';
         }
-        $content = ContentArticles::where("slug", $request_path)->first();
+        $content = Articles::where("slug", $request_path)->first();
 
         if(!$content){
-            $content = ContentArticles::where("slug", "404")->first();
+            $content = Articles::where("slug", "404")->first();
         }
 
-        $modules = ContentModules::byContentId($content->id)->where("position", $this->position)->get();
+        $modules = Module::byContentId($content->id)->where("position", $this->position)->get();
 
         return view('layout.modules', ['modules' => $modules ?? []]);
     }

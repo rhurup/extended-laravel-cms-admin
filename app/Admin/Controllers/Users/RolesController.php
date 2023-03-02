@@ -13,7 +13,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Support\Facades\Auth;
 
-class UsersController extends AdminController
+class RolesController extends AdminController
 {
     /**
      * Title for current resource.

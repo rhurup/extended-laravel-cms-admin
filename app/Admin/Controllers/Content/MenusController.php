@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers\Content;
 
-use App\Models\Content\ContentMenus;
+use App\Models\Content\Menu;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Layout\Column;
@@ -35,7 +35,7 @@ class MenusController extends Controller
                     $form = new \Encore\Admin\Widgets\Form();
                     $form->action(admin_url('menus'));
 
-                    $menuModel = ContentMenus::class;
+                    $menuModel = Menu::class;
                     $permissionModel = config('admin.database.permissions_model');
                     $roleModel = config('admin.database.roles_model');
 
@@ -71,7 +71,7 @@ class MenusController extends Controller
      */
     protected function treeView()
     {
-        $menuModel = ContentMenus::class;
+        $menuModel = Menu::class;
 
         $tree = new Tree(new $menuModel());
 
@@ -121,7 +121,7 @@ class MenusController extends Controller
      */
     public function form()
     {
-        $menuModel = ContentMenus::class;
+        $menuModel = Menu::class;
         $permissionModel = config('admin.database.permissions_model');
         $roleModel = config('admin.database.roles_model');
 

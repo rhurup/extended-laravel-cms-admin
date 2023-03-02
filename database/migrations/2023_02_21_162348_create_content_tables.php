@@ -64,138 +64,13 @@ return new class extends Migration
             $table->softDeletes();
             $table->integer("deleted_by")->default(0)->index();
         });
+
         Schema::create('content_menus_roles', function (Blueprint $table) {
             $table->integer('role_id');
             $table->integer('menu_id');
             $table->index(['role_id', 'menu_id']);
             $table->timestamps();
         });
-
-        $std_content = [
-            [
-                "id" => 1,
-                "status" => 2,
-                "slug" => "404",
-                "title" => "Siden blev desværre ikke fundet",
-                "content" => "<p>Vi kunne desværre ikke finde siden som du ledte efter.</p>",
-                "created_at" => \Carbon\Carbon::now(),
-                "created_by" => 1,
-                "updated_at" => \Carbon\Carbon::now(),
-                "updated_by" => 1,
-            ],
-            [
-                "id" => 2,
-                "status" => 2,
-                "slug" => "403",
-                "title" => "Du har desværre ikke rettigheder til denne side.",
-                "content" => "<p>Siden du ønsker at tilgå er desværre ikke tilgængelig.</p>",
-                "created_at" => \Carbon\Carbon::now(),
-                "created_by" => 1,
-                "updated_at" => \Carbon\Carbon::now(),
-                "updated_by" => 1,
-            ],
-            [
-                "id" => 3,
-                "status" => 2,
-                "slug" => "home",
-                "title" => "Forside",
-                "content" => "<p>Velkommen til hjemmesiden</p>",
-                "created_at" => \Carbon\Carbon::now(),
-                "created_by" => 1,
-                "updated_at" => \Carbon\Carbon::now(),
-                "updated_by" => 1,
-            ]
-        ];
-
-        foreach($std_content as $content){
-            \App\Models\Content\ContentArticles::insert($content);
-        }
-
-
-        $std_modules = [
-            [
-                "id" => 1,
-                "status" => 1,
-                "title" => "Footer 1",
-                "position" => "footer",
-                "pages" => "*",
-                "content" => "<p>1</p>",
-                "sm_col" => "12",
-                "md_col" => "3",
-                "xl_col" => "3",
-                "created_at" => \Carbon\Carbon::now(),
-                "created_by" => 1,
-                "updated_at" => \Carbon\Carbon::now(),
-                "updated_by" => 1,
-            ],
-            [
-                "id" => 2,
-                "status" => 1,
-                "title" => "Footer 2",
-                "position" => "footer",
-                "pages" => "*",
-                "sm_col" => "12",
-                "md_col" => "3",
-                "xl_col" => "3",
-                "content" => "<p>2</p>",
-                "created_at" => \Carbon\Carbon::now(),
-                "created_by" => 1,
-                "updated_at" => \Carbon\Carbon::now(),
-                "updated_by" => 1,
-            ],
-            [
-                "id" => 3,
-                "status" => 1,
-                "title" => "Footer 3",
-                "position" => "footer",
-                "pages" => "*",
-                "sm_col" => "12",
-                "md_col" => "3",
-                "xl_col" => "3",
-                "content" => "<p>2</p>",
-                "created_at" => \Carbon\Carbon::now(),
-                "created_by" => 1,
-                "updated_at" => \Carbon\Carbon::now(),
-                "updated_by" => 1,
-            ],
-            [
-                "id" => 4,
-                "status" => 1,
-                "title" => "Top 1",
-                "position" => "top",
-                "pages" => "*",
-                "sm_col" => "12",
-                "md_col" => "6",
-                "xl_col" => "6",
-                "content" => "<p>Top 1</p>",
-                "created_at" => \Carbon\Carbon::now(),
-                "created_by" => 1,
-                "updated_at" => \Carbon\Carbon::now(),
-                "updated_by" => 1,
-            ],
-            [
-                "id" => 5,
-                "status" => 1,
-                "title" => "Top 2",
-                "position" => "top",
-                "pages" => "*",
-                "sm_col" => "12",
-                "md_col" => "6",
-                "xl_col" => "6",
-                "content" => "<p>Top 2</p>",
-                "created_at" => \Carbon\Carbon::now(),
-                "created_by" => 1,
-                "updated_at" => \Carbon\Carbon::now(),
-                "updated_by" => 1,
-            ]
-        ];
-
-        foreach($std_modules as $module){
-            \App\Models\Content\ContentModules::insert($module);
-        }
-
-
-        exit;
     }
 
     /**

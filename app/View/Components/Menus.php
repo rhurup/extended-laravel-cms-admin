@@ -2,14 +2,9 @@
 
 namespace App\View\Components;
 
-use App\Models\Content\ContentArticles;
-use App\Models\Content\ContentMenus;
-use App\Models\Content\ContentModules;
-use App\Services\ContentService;
+use App\Models\Content\Menu;
 use Closure;
-use Encore\Admin\Facades\Admin;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Request;
 use Illuminate\View\Component;
 
 class Menus extends Component
@@ -27,7 +22,7 @@ class Menus extends Component
      */
     public function render(): View|Closure|string
     {
-        $menu = new ContentMenus();
+        $menu = new Menu();
 
         return view('layout.menu', ['menu' => $menu->menu() ?? []]);
     }

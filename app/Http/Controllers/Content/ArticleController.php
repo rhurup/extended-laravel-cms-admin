@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Content;
 
-use App\Models\Content\ContentArticles;
-use App\Models\Content\ContentMenus;
+use App\Models\Content\Articles;
+use App\Models\Content\Menu;
 use App\Services\ContentService;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -25,16 +25,16 @@ class ArticleController extends Controller
 
 
         $menu = Admin::menu();
-        $article = ContentArticles::findBySlug($slug);
-        $menu = ContentMenus::findByUrl($request->path);
+        $article = Articles::findBySlug($slug);
+        $menu = Menu::findByUrl($request->path);
 
         if(!$article){
-            $article = ContentArticles::findBySlug('404');
+            $article = Articles::findBySlug('404');
             return response()->view('content.content', ['menu' => $menu, "content" => $article], 404);
         }
 
         if(ContentService::checkPermissions($article, $menu)){
-            $article = ContentArticles::findBySlug('403');
+            $article = Articles::findBySlug('403');
             return response()->view('content.content', ['menu' => $menu, "content" => $article], 403);
         }
 
@@ -45,10 +45,10 @@ class ArticleController extends Controller
 
         $menu = Admin::menu();
 
-        $content = ContentArticles::findBySlug("home");
+        $content = Articles::findBySlug("home");
 
         if(!$content){
-            $content = ContentArticles::findBySlug('404');
+            $content = Articles::findBySlug('404');
             return response()->view('content.content', ['menu' => $menu, "content" => $content], 404);
         }
 

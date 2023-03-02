@@ -15,6 +15,9 @@ Route::group([
     $router->resource('articles', \App\Admin\Controllers\Content\ArticlesController::class);
     $router->resource('modules', \App\Admin\Controllers\Content\ModulesController::class);
     $router->resource('menus', \App\Admin\Controllers\Content\MenusController::class);
-    $router->resource('menus', \App\Admin\Controllers\Users\MenusController::class);
+    $router->resource('users', \App\Admin\Controllers\Users\UsersController::class);
+    $router->resource('roles', \App\Admin\Controllers\Users\RolesController::class);
+    $router->resource('permissions', \App\Admin\Controllers\Users\PermissionsController::class);
+    $router->resource('countries', \App\Admin\Controllers\CountriesController::class);
 
 });

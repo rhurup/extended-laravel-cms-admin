@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers\Content;
 
-use App\Models\Content\ContentArticles;
+use App\Models\Content\Articles;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
@@ -28,7 +28,7 @@ class ArticlesController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new ContentArticles());
+        $grid = new Grid(new Articles());
 
         $grid->model()->orderBy('id', 'desc');
 
@@ -87,7 +87,7 @@ class ArticlesController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(ContentArticles::findOrFail($id));
+        $show = new Show(Articles::findOrFail($id));
 
         $show->field('id', __('ID'));
         $show->field('created_at', __('Created at'));
@@ -103,9 +103,9 @@ class ArticlesController extends AdminController
      */
     protected function form($id = 0)
     {
-        $status = ContentArticles::find($id)->status ?? 0;
+        $status = Articles::find($id)->status ?? 0;
 
-        $form = new Form(new ContentArticles());
+        $form = new Form(new Articles());
 
         $form->column(2/3, function ($form) use ($status) {
 

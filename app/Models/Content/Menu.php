@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
-class ContentMenus extends Model
+class Menu extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -56,7 +56,7 @@ class ContentMenus extends Model
      */
     public function roles(): BelongsToMany
     {
-        $pivotTable = ContentMenusRoles::class;
+        $pivotTable = MenuRoles::class;
         $relatedModel = config('admin.database.roles_model');
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'menu_id', 'role_id');

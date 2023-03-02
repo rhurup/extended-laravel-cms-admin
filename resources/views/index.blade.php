@@ -52,7 +52,7 @@
             <x-modules position="bottom" />
         </div>
 
-        <div class="container-fluid footer">
+        <div class="container-fluid footer fixed-bottom">
             <x-modules position="footer" />
         </div>
     </body>

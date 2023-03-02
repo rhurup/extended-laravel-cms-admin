@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Controllers\Users;
+namespace App\Admin\Controllers;
 
 use App\Models\Content\Articles;
 use App\Models\Users\User;
@@ -13,7 +13,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Support\Facades\Auth;
 
-class UsersController extends AdminController
+class CountriesController extends AdminController
 {
     /**
      * Title for current resource.

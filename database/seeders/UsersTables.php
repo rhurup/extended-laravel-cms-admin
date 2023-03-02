@@ -1,24 +1,26 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Users\User;
+use App\Models\Users\UserAclRole;
+use App\Models\Users\UserRoles;
+use App\Models\Users\UserAclPermission;
 use Carbon\Carbon;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class SeedRolesAndPermissionsAndAdminUser extends Migration
+class UsersTables extends Seeder
 {
     /**
-     * Run the migrations.
-     *
-     * @return void
+     * Run the database seeds.
      */
-    public function up()
+    public function run(): void
     {
-        $UserRole = \App\Models\Users\UserAclRole::create(['name' => 'user', 'display_name' => 'Normal user']);
 
-        $AdminPermissions = [];
+        $UserRole = UserAclRole::create(['name' => 'user', 'display_name' => 'Normal user']);
+
         $UserPermissions = [];
         $UserPermissions[] = ['group' => 'user', 'key' => 'login', 'description' => 'Login in at the frontend'];
         $UserPermissions[] = ['group' => 'user', 'key' => 'register', 'description' => 'Register in at the frontend'];
@@ -30,7 +32,7 @@ class SeedRolesAndPermissionsAndAdminUser extends Migration
         $UserPermissions[] = ['group' => 'user', 'key' => 'update', 'description' => 'Edit own user'];
 
         foreach($UserPermissions as $UserPermission){
-            $permission = \App\Models\Users\UserAclPermission::create($UserPermission);
+            $permission = UserAclPermission::create($UserPermission);
             $UserRole->addPermission($permission->id);
         }
 
@@ -46,16 +48,7 @@ class SeedRolesAndPermissionsAndAdminUser extends Migration
         $User->timezone_id          = (\App\Models\Countries\CountriesZones::where("zone_name", 'Europe/London')->first())->id;
         $User->language_id          = (\App\Models\Countries\CountriesLanguages::where("lang", 'en-GB')->first())->id;
         $User->save();
-        \App\Models\Users\UserRoles::create(['role_id'=> $UserRole->id, 'user_id' => $User->id]);
-    }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
+        UserRoles::create(['role_id'=> $UserRole->id, 'user_id' => $User->id]);
     }
 }

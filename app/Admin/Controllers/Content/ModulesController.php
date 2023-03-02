@@ -2,8 +2,8 @@
 
 namespace App\Admin\Controllers\Content;
 
-use App\Models\Content\ContentArticles;
-use App\Models\Content\ContentModules;
+use App\Models\Content\Articles;
+use App\Models\Content\Module;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
@@ -30,7 +30,7 @@ class ModulesController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new ContentModules());
+        $grid = new Grid(new Module());
         $grid->model()->orderBy('id', 'desc');
         $grid->column('id', __('ID'))->sortable();
 
@@ -77,7 +77,7 @@ class ModulesController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(ContentModules::findOrFail($id));
+        $show = new Show(Module::findOrFail($id));
 
         $show->field('id', __('ID'));
         $show->field('created_at', __('Created at'));
@@ -93,7 +93,7 @@ class ModulesController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new ContentModules());
+        $form = new Form(new Module());
 
         $pages = ContentService::getPages();
 

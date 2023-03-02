@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ContentModules extends Model
+class Articles extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -17,7 +17,7 @@ class ContentModules extends Model
      *
      * @var string
      */
-    protected $table = 'content_modules';
+    protected $table = 'content_articles';
 
     /**
      * The attributes that aren't mass assignable.
@@ -33,21 +33,12 @@ class ContentModules extends Model
         'deleted_at' => 'datetime',
     ];
 
-    public function getPagesAttribute($value)
-    {
-        return explode(',', $value);
-    }
-
-    public function setPagesAttribute($value)
-    {
-        $this->attributes['pages'] = implode(',', $value);
-    }
 
     public static function boot()
     {
         parent::boot();
 
-        static::creating(function(ContentModules $model)
+        static::creating(function(Articles $model)
         {
             if ($model->created_at === null)
             {
@@ -59,15 +50,18 @@ class ContentModules extends Model
             }
         });
 
-        static::saving(function(ContentModules $model)
+        static::saving(function(Articles $model)
         {
+            if($model->status === null){
+                $model->status = ContentService::LOCKED_STATUS;
+            }
             $model->updated_at = Carbon::now();
         });
     }
 
-    public static function byContentId($id){
-        return static::query()
-            ->whereRaw("find_in_set('$id',pages)")
-            ->orWhere("pages", "LIKE", "%*%");
+
+    public static function findBySlug($slug){
+        return static::query()->where("slug", $slug)->first();
     }
+
 }

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Content\ContentArticles;
-use App\Models\Content\ContentMenus;
+use App\Models\Content\Articles;
+use App\Models\Content\Menu;
 use Illuminate\Support\Facades\Auth;
 
 class ContentService
@@ -19,7 +19,7 @@ class ContentService
 
     public static function getPages(){
 
-        $pages = ContentArticles::get()->toArray();
+        $pages = Articles::get()->toArray();
         $pages[] = ['id' => '*', 'title' => 'All'];
         $pages = collect($pages)->reverse()->mapWithKeys(function (array $item, int $key) {
             return [$item['id'] => $item['title']];
@@ -62,7 +62,7 @@ class ContentService
         ];
     }
 
-    public static function checkPermissions(ContentArticles $article, ContentMenus $menu){
+    public static function checkPermissions(Articles $article, Menu $menu){
 
         $role = false;
         if(Auth::user() == null){
@@ -72,7 +72,7 @@ class ContentService
 
         if(Auth::user() != null){
             if(Auth::user()->inRoles($article->roles)){
-                $content = ContentArticles::findBySlug('403');
+                $content = Articles::findBySlug('403');
                 return response()->view('content.content', ['menu' => $menu, "content" => $content], 403);
             }
         }

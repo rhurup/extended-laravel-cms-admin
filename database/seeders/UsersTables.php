@@ -19,7 +19,7 @@ class UsersTables extends Seeder
     public function run(): void
     {
 
-        $UserRole = UserAclRole::create(['name' => 'user', 'display_name' => 'Normal user']);
+        $UserRole = UserAclRole::create(['name' => 'user', 'description' => 'Normal user']);
 
         $UserPermissions = [];
         $UserPermissions[] = ['group' => 'user', 'key' => 'login', 'description' => 'Login in at the frontend'];
@@ -38,15 +38,15 @@ class UsersTables extends Seeder
 
         echo "Creating public user\n";
         $User                    = new User();
-        $User->name              = 'Public user (Dont delete)';
-        $User->email             = 'public@example.com';
+        $User->name              = 'Test user';
+        $User->email             = 'test@example.com';
         $User->email_verified_at = Carbon::now()->format('Y-m-d H:i:s');
-        $User->password          = bcrypt(Str::random(16) . Carbon::now()->format('Y-m-d'));
+        $User->password          = bcrypt('test');
         $User->api_token         = Str::random(64);
         $User->remember_token    = Str::random(64);
         $User->avatar            = 'images/avatar_default.png';
-        $User->timezone_id          = (\App\Models\Countries\CountriesZones::where("zone_name", 'Europe/London')->first())->id;
-        $User->language_id          = (\App\Models\Countries\CountriesLanguages::where("lang", 'en-GB')->first())->id;
+        $User->timezone_id       = (\App\Models\Countries\CountriesZones::where("zone_name", 'Europe/London')->first())->id;
+        $User->language_id       = (\App\Models\Countries\CountriesLanguages::where("lang", 'en-GB')->first())->id;
         $User->save();
 
         UserRoles::create(['role_id'=> $UserRole->id, 'user_id' => $User->id]);

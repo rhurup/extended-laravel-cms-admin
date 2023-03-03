@@ -62,7 +62,11 @@ class ContentService
         ];
     }
 
-    public static function checkPermissions(Articles $article, Menu $menu){
+    public static function checkPermissions($article, $menu){
+
+        if(!$article || $menu){
+            return false;
+        }
 
         $role = false;
         if(Auth::user() == null){
@@ -70,12 +74,13 @@ class ContentService
         }
 
 
-        if(Auth::user() != null){
-            if(Auth::user()->inRoles($article->roles)){
-                $content = Articles::findBySlug('403');
-                return response()->view('content.content', ['menu' => $menu, "content" => $content], 403);
-            }
-        }
+//
+//        if(Auth::user() != null){
+//            if(Auth::user()->($article->roles)){
+//                $content = Articles::findBySlug('403');
+//                return response()->view('content.content', ['menu' => $menu, "content" => $content], 403);
+//            }
+//        }
 
 
     }

@@ -23,10 +23,11 @@ class CreateAclAndUsersRoles extends Migration
             $table->softDeletes();
             $table->bigInteger("deleted_by")->default(0);
         });
+
         Schema::create('users_acl_roles', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable(false);
-            $table->string('display_name')->nullable(false);
+            $table->string('description')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
             $table->bigInteger("deleted_by")->default(0);

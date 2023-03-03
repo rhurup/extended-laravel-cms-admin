@@ -85,7 +85,10 @@ class MenuContent extends Seeder
         Menu::query()->where('uri', 'redis')->update(['parent_id' => $admin_menu_item->id]);
         Menu::query()->where('uri', 'exceptions')->update(['parent_id' => $admin_menu_item->id]);
         Menu::query()->where('uri', 'scheduling')->update(['parent_id' => $admin_menu_item->id]);
+        Menu::query()->where('uri', 'countries')->update(['parent_id' => $admin_menu_item->id]);
         Menu::query()->where('title', 'Helpers')->update(['parent_id' => $admin_menu_item->id]);
+        Menu::query()->where('uri', 'media')->update(['order' => 4]);
+        Menu::query()->where('uri', 'settings')->update(['order' => 5]);
 
         Menu::saveOrder([], $admin_menu_item->id);
 

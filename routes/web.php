@@ -13,28 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-\Illuminate\Support\Facades\Auth::routes();
+Auth::routes();
 
-// Testing endpoint
-Route::group(
-    ['prefix' => 'test'],
-    function($router)
-    {
-        //$router->get('/', 'TestController@index')->name("test.index_get");
-    }
-);
-
-Route::group(
-    ['prefix' => 'members'],
-    function($router)
-    {
-        $router->post('/login', 'App\Http\Controllers\Members\MemberController@login')->name("members.login");
-        $router->post('/register', 'App\Http\Controllers\Members\MemberController@register')->name("members.register");
-
-        $router->get('/', 'App\Http\Controllers\Members\MemberController@index')->middleware(['auth:api'])->name("members.indexr");
-        $router->get('/check', 'App\Http\Controllers\Members\MemberController@check')->middleware(['auth:api'])->name("members.check");
-    }
-);
+// Profile endpoint
+// Require Authentication for these endpoints
+Route::middleware(['auth'])->group(function() {
+    Route::group(
+        ['prefix' => 'profile'],
+        function ($router) {
+            $router->get('/', 'App\Http\Controllers\Profile\ProfileController@index')->name("profile.index_get");
+        }
+    );
+});
 
 Route::get('/', 'App\Http\Controllers\Content\ArticleController@home')->name("home");
 Route::get('/{slug}', 'App\Http\Controllers\Content\ArticleController@index')->name("content");

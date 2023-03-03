@@ -4,6 +4,7 @@ namespace App\Admin\Controllers\Users;
 
 use App\Models\Content\Articles;
 use App\Models\Users\User;
+use App\Models\Users\UserAclRole;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
@@ -29,13 +30,14 @@ class RolesController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new User());
+        $grid = new Grid(new UserAclRole());
 
         $grid->model()->orderBy('id', 'desc');
 
         $grid->column('id', __('ID'))->sortable();
 
-        $grid->column('email', __('Email'));
+        $grid->column('name', __('Name'));
+        $grid->column('description', __('Beskrivelse'));
 
         $grid->updated_at()->display(function($datetime) {
             return Carbon::parse($datetime)->format("d-m-Y");
@@ -85,7 +87,7 @@ class RolesController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new User());
+        $form = new Form(new UserAclRole());
 
         // Add a form item to this column
         $form->hidden('id', __('ID'));

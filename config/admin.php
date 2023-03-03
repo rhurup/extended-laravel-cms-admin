@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>A</b>',
+    'logo-mini' => '<b>'.\Illuminate\Support\Str::substr(env("APP_NAME", "Laravel"), 0, 1).'</b>',
 
     /*
     |--------------------------------------------------------------------------

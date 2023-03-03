@@ -67,7 +67,6 @@ class Module extends Model
 
     public static function byContentId($id){
         return static::query()
-            ->whereRaw("find_in_set('$id',pages)")
-            ->orWhere("pages", "LIKE", "%*%");
+            ->whereRaw("(find_in_set('$id',pages) OR pages LIKE '%*%')");
     }
 }

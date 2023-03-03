@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Admin\Controllers\Users;
+namespace App\Admin\Controllers;
 
 use App\Models\Content\Articles;
+use App\Models\Settings\Settings;
 use App\Models\Users\User;
-use App\Models\Users\UserAclPermission;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
@@ -13,8 +13,9 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
-class PermissionsController extends AdminController
+class SettingsController extends AdminController
 {
     /**
      * Title for current resource.
@@ -30,14 +31,14 @@ class PermissionsController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new UserAclPermission());
+        $grid = new Grid(new Settings());
 
         $grid->model()->orderBy('id', 'desc');
 
         $grid->column('id', __('ID'))->sortable();
 
-        $grid->column('group', __('Group'));
         $grid->column('key', __('Key'));
+        $grid->column('value', __('Value'));
 
         $grid->updated_at()->display(function($datetime) {
             return Carbon::parse($datetime)->format("d-m-Y");
@@ -71,7 +72,7 @@ class PermissionsController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(UserAclPermission::findOrFail($id));
+        $show = new Show(Settings::findOrFail($id));
 
         $show->field('id', __('ID'));
         $show->field('created_at', __('Created at'));
@@ -87,13 +88,14 @@ class PermissionsController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new UserAclPermission());
+        $form = new Form(new Settings());
 
         // Add a form item to this column
         $form->hidden('id', __('ID'));
-        $form->text('group', __('Group'));
+        $form->hidden('created_by', __('Created By'))->default(Auth::user()->id);
+        $form->hidden('updated_by', __('Updated By'))->default(Auth::user()->id);
         $form->text('key', __('Key'));
-        $form->text('description', __('Description'));
+        $form->text('value', __('Value'));
 
         $form->tools(function (Form\Tools $tools) {
             // Disable `List` btn.
@@ -105,6 +107,7 @@ class PermissionsController extends AdminController
             $tools->disableView();
         });
 
+        Cache::clear();
 
         return $form;
     }

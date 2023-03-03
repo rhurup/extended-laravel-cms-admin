@@ -6,6 +6,7 @@ use App\Models\Content\Articles;
 use App\Models\Content\Module;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\Component;
 
@@ -28,6 +29,7 @@ class Modules extends Component
         if(in_array($request_path, ['', '/'])){
             $request_path = 'home';
         }
+
         $content = Articles::where("slug", $request_path)->first();
 
         if(!$content){

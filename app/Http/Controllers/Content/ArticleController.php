@@ -17,16 +17,8 @@ class ArticleController extends Controller
     use AuthorizesRequests, ValidatesRequests;
 
     public function index(Request $request, $slug){
-
-        echo "<pre>";
-        var_dump($request->path());
-        echo "</pre>";
-        exit;
-
-
-        $menu = Admin::menu();
         $article = Articles::findBySlug($slug);
-        $menu = Menu::findByUrl($request->path);
+        $menu = Menu::where('uri', $request->path)->first();
 
         if(!$article){
             $article = Articles::findBySlug('404');

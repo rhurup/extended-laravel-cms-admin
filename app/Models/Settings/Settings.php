@@ -24,11 +24,14 @@ class Settings extends BaseModel
         'description',
     ];
 
+    public static function get($key, $default = ''){
+        return self::getValue($key, $default = '');
+    }
 
     public static function getValue($key, $default = '')
     {
         $value = Cache::rememberForever('settings_'.$key, function () use ($key, $default) {
-            $settingvalue = Settings::where("key", $key)->first()->value;
+            $settingvalue = Settings::where("key", $key)->first()->value ?? null;
             if($settingvalue == null){
                 return $default;
             }else{

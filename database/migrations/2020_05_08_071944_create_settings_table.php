@@ -56,14 +56,20 @@ class CreateSettingsTable extends Migration
                                             'locked'      => 1
         ]);
 
-        \App\Models\Settings\Settings::insert(['key'         => 'default.admin_login_background',
-                                               'value'       => 'images/admin_background.jpg',
-                                               'description' => 'Default admin login background',
+        \App\Models\Settings\Settings::insert(['key'         => 'default.admin_logo',
+                                               'value'       => 'storage/logo.png',
+                                               'description' => 'Default admin logo',
                                                'locked'      => 1
         ]);
-        \App\Models\Settings\Settings::insert(['key'         => 'default.frontend_login_background',
-                                               'value'       => 'images/frontend_background.jpg',
-                                               'description' => 'Default frontend login background',
+        \App\Models\Settings\Settings::insert(['key'         => 'default.frontend_logo',
+                                               'value'       => 'storage/logo.png',
+                                               'description' => 'Default frontend logo',
+                                               'locked'      => 1
+        ]);
+
+        \App\Models\Settings\Settings::insert(['key'         => 'default.register_user_allowed',
+                                               'value'       => '1',
+                                               'description' => 'Allow registering users public',
                                                'locked'      => 1
         ]);
     }

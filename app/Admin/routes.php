@@ -19,5 +19,6 @@ Route::group([
     $router->resource('roles', \App\Admin\Controllers\Users\RolesController::class);
     $router->resource('permissions', \App\Admin\Controllers\Users\PermissionsController::class);
     $router->resource('countries', \App\Admin\Controllers\CountriesController::class);
+    $router->resource('settings', \App\Admin\Controllers\SettingsController::class);
 
 });

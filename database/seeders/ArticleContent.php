@@ -65,11 +65,6 @@ class ArticleContent extends Seeder
 
         Articles::insert($std_content);
 
-        file_put_contents(storage_path("imports/footer_1.html"), '<img src="/storage/logo.png" class="img-fluid"><p>Poecilia Scandinavia ved formand Dag Leonard Fjeldstad, Lønningsvegen 105, 5570 Aksdal, Norge</p>');
-        file_put_contents(storage_path("imports/footer_2.html"), '<img src="/storage/logo.png" class="img-fluid"><p>Poecilia Scandinavia ved formand Dag Leonard Fjeldstad, Lønningsvegen 105, 5570 Aksdal, Norge</p>');
-        file_put_contents(storage_path("imports/footer_3.html"), '<img src="/storage/logo.png" class="img-fluid"><p>Poecilia Scandinavia ved formand Dag Leonard Fjeldstad, Lønningsvegen 105, 5570 Aksdal, Norge</p>');
-
-
         $std_modules = [
             [
                 "id" => 1,

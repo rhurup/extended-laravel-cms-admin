@@ -57,12 +57,12 @@ class CreateSettingsTable extends Migration
         ]);
 
         \App\Models\Settings\Settings::insert(['key'         => 'default.admin_logo',
-                                               'value'       => 'storage/logo.png',
+                                               'value'       => '/storage/logo.png',
                                                'description' => 'Default admin logo',
                                                'locked'      => 1
         ]);
         \App\Models\Settings\Settings::insert(['key'         => 'default.frontend_logo',
-                                               'value'       => 'storage/logo.png',
+                                               'value'       => '/storage/logo.png',
                                                'description' => 'Default frontend logo',
                                                'locked'      => 1
         ]);

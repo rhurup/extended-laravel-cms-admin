@@ -2,7 +2,7 @@
     <div class="menu-container row">
         <div class="col-4">
             @if(App\Models\Settings\Settings::get('default.frontend_logo') !== "")
-                <img src="{{App\Models\Settings\Settings::get('default.frontend_logo')}}" class="img-fluid" />
+                <img src="{{env("APP_URL", "/")}}/{{App\Models\Settings\Settings::get('default.frontend_logo')}}" class="img-fluid" />
             @endif
         </div>
         <div class="col-8">

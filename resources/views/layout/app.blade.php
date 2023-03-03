@@ -38,7 +38,7 @@
         @stack('javascript')
     </head>
     <body class="body">
-        @if(env("APP_ENV") != 'production')
+        @if(env("APP_ENV") == 'production')
             <div style="background-color: #ef4136; color: #FFF; text-align: center; width:100%;height:30px;position: relative;">
                 Environment: <strong>{{env("APP_ENV")}}</strong>
             </div>
@@ -52,7 +52,7 @@
             <x-modules position="bottom" />
         </div>
 
-        <div class="container-fluid footer fixed-bottom">
+        <div class="container-fluid footer">
             <x-modules position="footer" />
         </div>
     </body>

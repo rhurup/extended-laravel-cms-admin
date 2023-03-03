@@ -65,6 +65,11 @@ class ArticleContent extends Seeder
 
         Articles::insert($std_content);
 
+        file_put_contents(storage_path("imports/footer_1.html"), '<img src="/storage/logo.png" class="img-fluid"><p>Poecilia Scandinavia ved formand Dag Leonard Fjeldstad, Lønningsvegen 105, 5570 Aksdal, Norge</p>');
+        file_put_contents(storage_path("imports/footer_2.html"), '<img src="/storage/logo.png" class="img-fluid"><p>Poecilia Scandinavia ved formand Dag Leonard Fjeldstad, Lønningsvegen 105, 5570 Aksdal, Norge</p>');
+        file_put_contents(storage_path("imports/footer_3.html"), '<img src="/storage/logo.png" class="img-fluid"><p>Poecilia Scandinavia ved formand Dag Leonard Fjeldstad, Lønningsvegen 105, 5570 Aksdal, Norge</p>');
+
+
         $std_modules = [
             [
                 "id" => 1,
@@ -72,7 +77,7 @@ class ArticleContent extends Seeder
                 "title" => "Footer 1",
                 "position" => "footer",
                 "pages" => "*",
-                "content" => "<p>1</p>",
+                "content" => file_get_contents(storage_path("imports/footer_1.html")) ?? "",
                 "sm_col" => "12",
                 "md_col" => "3",
                 "xl_col" => "3",
@@ -90,7 +95,7 @@ class ArticleContent extends Seeder
                 "sm_col" => "12",
                 "md_col" => "3",
                 "xl_col" => "3",
-                "content" => "<p>2</p>",
+                "content" => file_get_contents(storage_path("imports/footer_2.html")) ?? "",
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),
@@ -105,7 +110,7 @@ class ArticleContent extends Seeder
                 "sm_col" => "12",
                 "md_col" => "3",
                 "xl_col" => "3",
-                "content" => "<p>2</p>",
+                "content" => file_get_contents(storage_path("imports/footer_3.html")) ?? "",
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),

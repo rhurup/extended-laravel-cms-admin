@@ -3,26 +3,18 @@
 namespace App\Models\Users;
 
 use App\Models\BaseModel;
-use App\Models\Users\User;
-use App\Models\Users\UserRoles;
 use App\Traits\DataTables;
 
-class UserAclRole extends BaseModel
+class UsersRoles extends BaseModel
 {
     use DataTables;
-    /**
-     * Table name
-     *
-     * @var string
-     */
-    protected $table = 'users_acl_roles';
 
     /**
      * @var array
      */
     protected $fillable = [
         'name',
-        'display_name',
+        'description',
     ];
 
     /**
@@ -43,18 +35,18 @@ class UserAclRole extends BaseModel
      */
     public function permissions()
     {
-        return $this->belongsToMany(UserAclPermission::class, UserAclPermissionRole::class, 'role_id', 'permission_id');
+        return $this->belongsToMany(UsersRolesPermissions::class, UsersRolesPermissionsMap::class, 'role_id', 'permission_id');
     }
 
 
     /**
      * Get the users having this role
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\hasManyThrough
      */
     public function users()
     {
-        return $this->hasManyThrough(User::class,UserRoles::class,"role_id", "id");
+        return $this->hasManyThrough(Users::class,UsersRolesMap::class);
     }
     /**
      * Add permissions to this role
@@ -65,7 +57,7 @@ class UserAclRole extends BaseModel
     {
         // Flatten input, look up models and discard non-existing models
         $permissions = collect($input)->flatten()->map(function ($value) {
-            return UserAclPermission::find((int)$value);
+            return UsersRolesPermissions::find((int)$value);
         })->reject(function ($value) {
             return empty($value);
         });
@@ -87,7 +79,7 @@ class UserAclRole extends BaseModel
     {
         // Flatten input, look up models and discard non-existing models
         $permissions = collect($input)->flatten()->map(function ($value) {
-            return UserAclPermission::find((int)$value);
+            return UsersRolesPermissions::find((int)$value);
         })->reject(function ($value) {
             return empty($value);
         });
@@ -105,7 +97,7 @@ class UserAclRole extends BaseModel
     {
         // Flatten input, look up models and discard non-existing models
         $permissions = collect($input)->flatten()->map(function ($value) {
-            return UserAclPermission::find((int)$value);
+            return UsersRolesPermissions::find((int)$value);
         })->reject(function ($value) {
             return empty($value);
         });

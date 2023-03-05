@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Users\User;
-use App\Models\Users\UserAclRole;
-use App\Models\Users\UserRoles;
-use App\Models\Users\UserAclPermission;
+use App\Models\Users\Users;
+use App\Models\Users\UsersRoles;
+use App\Models\Users\UsersRolesPermissions;
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -18,9 +16,10 @@ class UsersTables extends Seeder
      */
     public function run(): void
     {
+        $PublicRole = UsersRoles::create(['name' => 'public', 'description' => 'Public user (Dont delete)']);
+        $PublicPermissions = [];
 
-        $UserRole = UserAclRole::create(['name' => 'user', 'description' => 'Normal user']);
-
+        $UserRole = UsersRoles::create(['name' => 'user', 'description' => 'Normal user']);
         $UserPermissions = [];
         $UserPermissions[] = ['group' => 'user', 'key' => 'login', 'description' => 'Login in at the frontend'];
         $UserPermissions[] = ['group' => 'user', 'key' => 'register', 'description' => 'Register in at the frontend'];
@@ -32,16 +31,16 @@ class UsersTables extends Seeder
         $UserPermissions[] = ['group' => 'user', 'key' => 'update', 'description' => 'Edit own user'];
 
         foreach($UserPermissions as $UserPermission){
-            $permission = UserAclPermission::create($UserPermission);
+            $permission = UsersRolesPermissions::create($UserPermission);
             $UserRole->addPermission($permission->id);
         }
 
         echo "Creating public user\n";
-        $User                    = new User();
-        $User->name              = 'Test user';
-        $User->email             = 'test@example.com';
+        $User                    = new Users();
+        $User->name              = 'Public user';
+        $User->email             = 'public@user.com';
         $User->email_verified_at = Carbon::now()->format('Y-m-d H:i:s');
-        $User->password          = bcrypt('test');
+        $User->password          = bcrypt(Str::random(64));
         $User->api_token         = Str::random(64);
         $User->remember_token    = Str::random(64);
         $User->avatar            = 'images/avatar_default.png';
@@ -49,6 +48,7 @@ class UsersTables extends Seeder
         $User->language_id       = (\App\Models\Countries\CountriesLanguages::where("lang", 'en-GB')->first())->id;
         $User->save();
 
-        UserRoles::create(['role_id'=> $UserRole->id, 'user_id' => $User->id]);
+        $User->addRole($PublicRole->id);
+        $User->removeRole($UserRole->id);
     }
 }

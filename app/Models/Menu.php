@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models\Content;
+namespace App\Models;
 
+use App\Models\Users\UsersRoles;
+use App\Models\Users\UsersRolesMap;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Traits\ModelTree;
@@ -18,12 +20,6 @@ class Menu extends Model
     use ModelTree {
         ModelTree::boot as treeBoot;
     }
-    /**
-     * Table name
-     *
-     * @var string
-     */
-    protected $table = 'content_menus';
 
     /**
      * The attributes that aren't mass assignable.
@@ -56,10 +52,7 @@ class Menu extends Model
      */
     public function roles(): BelongsToMany
     {
-        $pivotTable = MenuRoles::class;
-        $relatedModel = config('admin.database.roles_model');
-
-        return $this->belongsToMany($relatedModel, $pivotTable, 'menu_id', 'role_id');
+        return $this->belongsToMany(UsersRoles::class, MenuRolesMap::class);
     }
 
     /**
@@ -74,21 +67,9 @@ class Menu extends Model
 
         $query = static::query();
 
-        if (config('admin.check_menu_roles') !== false) {
-            $query->with('roles');
-        }
+        $query->with('roles');
 
         return $query->selectRaw('*, '.$orderColumn.' ROOT')->orderByRaw($byOrder)->get()->toArray();
-    }
-
-    /**
-     * determine if enable menu bind permission.
-     *
-     * @return bool
-     */
-    public function withPermission()
-    {
-        return (bool) config('admin.menu_bind_permission');
     }
 
     /**

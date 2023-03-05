@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Controllers\Content;
+namespace App\Admin\Controllers;
 
 use App\Models\Content\Articles;
 use App\Services\ContentService;

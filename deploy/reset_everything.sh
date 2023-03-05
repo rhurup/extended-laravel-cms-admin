@@ -1,4 +1,4 @@
-composer update
+#composer update
 
 composer dump-autoload
 

@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Content;
+namespace App\Http\Controllers;
 
-use App\Models\Content\Articles;
-use App\Models\Content\Menu;
+use App\Models\Articles;
+use App\Models\Menu;
 use App\Services\ContentService;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller

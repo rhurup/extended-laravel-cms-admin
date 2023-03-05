@@ -44,13 +44,15 @@
             </div>
         @endif
         <!-- Navbar -->
-        <x-menus position="top" />
+        <x-menus position="top"/>
+
+        <x-modules position="top" />
 
         <div class="container content">
-            <x-modules position="top" />
             @yield('content')
-            <x-modules position="bottom" />
         </div>
+
+        <x-modules position="bottom" />
 
         <div class="container-fluid footer">
             <x-modules position="footer" />

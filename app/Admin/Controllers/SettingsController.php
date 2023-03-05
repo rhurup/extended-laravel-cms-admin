@@ -4,7 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Models\Content\Articles;
 use App\Models\Settings\Settings;
-use App\Models\Users\User;
+use App\Models\Users\Users;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;

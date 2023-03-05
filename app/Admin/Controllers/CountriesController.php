@@ -3,7 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Content\Articles;
-use App\Models\Users\User;
+use App\Models\Users\Users;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
@@ -29,7 +29,7 @@ class CountriesController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new User());
+        $grid = new Grid(new Users());
 
         $grid->model()->orderBy('id', 'desc');
 
@@ -69,7 +69,7 @@ class CountriesController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(User::findOrFail($id));
+        $show = new Show(Users::findOrFail($id));
 
         $show->field('id', __('ID'));
         $show->field('created_at', __('Created at'));
@@ -85,7 +85,7 @@ class CountriesController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new User());
+        $form = new Form(new Users());
 
         // Add a form item to this column
         $form->hidden('id', __('ID'));

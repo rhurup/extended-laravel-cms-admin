@@ -3,10 +3,10 @@
 namespace App\Models\Users;
 
 use App\Models\BaseModel;
-use App\Models\Users\User;
+use App\Models\Users\Users;
 use App\Traits\DataTables;
 
-class UserAclPermission extends BaseModel
+class UsersRolesPermissions extends BaseModel
 {
     use DataTables;
 
@@ -15,7 +15,7 @@ class UserAclPermission extends BaseModel
      *
      * @var string
      */
-    protected $table = 'users_acl_permissions';
+    protected $table = 'users_roles_permissions';
 
     /**
      * @var array
@@ -45,6 +45,6 @@ class UserAclPermission extends BaseModel
      */
     public function roles()
     {
-        return $this->belongsToMany(UserAclRole::class, UserAclPermissionRole::class, 'permission_id', 'role_id');
+        return $this->belongsToMany(UsersRolesMap::class, UsersRolesPermissionsMap::class, 'permission_id', 'role_id');
     }
 }

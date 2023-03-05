@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Admin\Controllers\Content;
+namespace App\Admin\Controllers;
 
-use App\Models\Content\Menu;
+use App\Models\Menu;
+use App\Models\Users\UsersRoles;
+use App\Models\Users\UsersRolesMap;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Layout\Column;
@@ -36,17 +38,13 @@ class MenusController extends Controller
                     $form->action(admin_url('menus'));
 
                     $menuModel = Menu::class;
-                    $permissionModel = config('admin.database.permissions_model');
-                    $roleModel = config('admin.database.roles_model');
+                    $roleModel = UsersRoles::all();
 
                     $form->select('parent_id', trans('admin.parent_id'))->options($menuModel::selectOptions());
                     $form->text('title', trans('admin.title'))->rules('required');
                     $form->icon('icon', trans('admin.icon'))->default('fa-bars')->rules('required')->help($this->iconHelp());
                     $form->text('uri', trans('admin.uri'));
-                    $form->multipleSelect('roles', trans('admin.roles'))->options($roleModel::all()->pluck('name', 'id'));
-                    if ((new $menuModel())->withPermission()) {
-                        $form->select('permission', trans('admin.permission'))->options($permissionModel::pluck('name', 'slug'));
-                    }
+                    $form->multipleSelect('roles', trans('admin.roles'))->options($roleModel->pluck('description', 'id'));
                     $form->hidden('_token')->default(csrf_token());
 
                     $column->append((new Box(trans('admin.new'), $form))->style('success'));
@@ -122,8 +120,7 @@ class MenusController extends Controller
     public function form()
     {
         $menuModel = Menu::class;
-        $permissionModel = config('admin.database.permissions_model');
-        $roleModel = config('admin.database.roles_model');
+        $roleModel = UsersRoles::all();
 
         $form = new Form(new $menuModel());
 
@@ -133,10 +130,7 @@ class MenusController extends Controller
         $form->text('title', trans('admin.title'))->rules('required');
         $form->icon('icon', trans('admin.icon'))->default('fa-bars')->rules('required')->help($this->iconHelp());
         $form->text('uri', trans('admin.uri'));
-        $form->multipleSelect('roles', trans('admin.roles'))->options($roleModel::all()->pluck('name', 'id'));
-        if ($form->model()->withPermission()) {
-            $form->select('permission', trans('admin.permission'))->options($permissionModel::pluck('name', 'slug'));
-        }
+        $form->multipleSelect('roles', trans('admin.roles'))->options($roleModel->pluck('description', 'id'));
 
         $form->display('created_at', trans('admin.created_at'));
         $form->display('updated_at', trans('admin.updated_at'));

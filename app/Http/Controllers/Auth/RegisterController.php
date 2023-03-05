@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Settings\Settings;
 use App\Providers\RouteServiceProvider;
-use App\Models\Users\User;
+use App\Models\Users\Users;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -60,11 +61,15 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\Users\User
+     * @return \App\Models\Users\Users
      */
     protected function create(array $data)
     {
-        return User::create([
+        if(!(int)Settings::get('default.user_register_allowed')){
+            abort("403", "Creating user not allowed");
+        }
+
+        return Users::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

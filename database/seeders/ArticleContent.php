@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Content\Articles;
-use App\Models\Content\Module;
+use App\Models\Articles;
+use App\Models\Modules;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,7 +22,7 @@ class ArticleContent extends Seeder
                 "status" => 2,
                 "slug" => "404",
                 "title" => "Siden blev desværre ikke fundet",
-                "content" => "<p>Vi kunne desværre ikke finde siden som du ledte efter.</p>",
+                "content" => "",
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),
@@ -33,7 +33,7 @@ class ArticleContent extends Seeder
                 "status" => 2,
                 "slug" => "403",
                 "title" => "Du har desværre ikke rettigheder til denne side.",
-                "content" => "<p>Siden du ønsker at tilgå er desværre ikke tilgængelig.</p>",
+                "content" => "",
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),
@@ -44,7 +44,7 @@ class ArticleContent extends Seeder
                 "status" => 2,
                 "slug" => "home",
                 "title" => "Home",
-                "content" => "<p>Welcome to the web site</p>",
+                "content" => "",
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),
@@ -55,7 +55,7 @@ class ArticleContent extends Seeder
                 "status" => 1,
                 "slug" => "contact-us",
                 "title" => "Kontakt os",
-                "content" => "<p>Kontakt os</p>",
+                "content" => "",
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),
@@ -63,16 +63,23 @@ class ArticleContent extends Seeder
             ]
         ];
 
-        Articles::insert($std_content);
+
+        foreach ($std_content as $content) {
+            if (file_exists(storage_path("imports/" . $content['slug'] . ".html"))) {
+                $content['content'] = file_get_contents(storage_path("imports/" . $content['slug'] . ".html"));
+            }
+            Articles::insert($content);
+        }
 
         $std_modules = [
             [
                 "id" => 1,
                 "status" => 1,
-                "title" => "Footer 1",
+                "title" => "1",
                 "position" => "footer",
                 "pages" => "*",
-                "content" => file_get_contents(storage_path("imports/footer_1.html")) ?? "",
+                "layout" => "raw",
+                "content" => "",
                 "sm_col" => "12",
                 "md_col" => "3",
                 "xl_col" => "3",
@@ -84,13 +91,14 @@ class ArticleContent extends Seeder
             [
                 "id" => 2,
                 "status" => 1,
-                "title" => "Footer 2",
+                "title" => "2",
                 "position" => "footer",
                 "pages" => "*",
+                "layout" => "raw",
                 "sm_col" => "12",
                 "md_col" => "3",
                 "xl_col" => "3",
-                "content" => file_get_contents(storage_path("imports/footer_2.html")) ?? "",
+                "content" => "",
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),
@@ -99,13 +107,14 @@ class ArticleContent extends Seeder
             [
                 "id" => 3,
                 "status" => 1,
-                "title" => "Footer 3",
+                "title" => "3",
                 "position" => "footer",
                 "pages" => "*",
+                "layout" => "raw",
                 "sm_col" => "12",
                 "md_col" => "3",
                 "xl_col" => "3",
-                "content" => file_get_contents(storage_path("imports/footer_3.html")) ?? "",
+                "content" => "",
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),
@@ -114,13 +123,14 @@ class ArticleContent extends Seeder
             [
                 "id" => 4,
                 "status" => 1,
-                "title" => "Top 1",
-                "position" => "top",
+                "title" => "4",
+                "position" => "footer",
                 "pages" => "*",
+                "layout" => "raw",
                 "sm_col" => "12",
-                "md_col" => "6",
-                "xl_col" => "6",
-                "content" => "<p>Top 1</p>",
+                "md_col" => "3",
+                "xl_col" => "3",
+                "content" => "",
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),
@@ -129,13 +139,95 @@ class ArticleContent extends Seeder
             [
                 "id" => 5,
                 "status" => 1,
-                "title" => "Top 2",
+                "title" => "1",
                 "position" => "top",
-                "pages" => "*",
+                "img" => "images/generalforsamling.jpeg",
+                "pages" => "3",
+                "layout" => "card",
                 "sm_col" => "12",
-                "md_col" => "6",
-                "xl_col" => "6",
-                "content" => "<p>Top 2</p>",
+                "md_col" => "4",
+                "xl_col" => "4",
+                "content" => '',
+                "created_at" => Carbon::now(),
+                "created_by" => 1,
+                "updated_at" => Carbon::now(),
+                "updated_by" => 1,
+            ],
+            [
+                "id" => 6,
+                "status" => 1,
+                "title" => "2",
+                "position" => "top",
+                "pages" => "3",
+                "layout" => "card",
+                "sm_col" => "12",
+                "md_col" => "4",
+                "xl_col" => "4",
+                "content" => '',
+                "created_at" => Carbon::now(),
+                "created_by" => 1,
+                "updated_at" => Carbon::now(),
+                "updated_by" => 1,
+            ],
+            [
+                "id" => 7,
+                "status" => 1,
+                "title" => "3",
+                "position" => "top",
+                "pages" => "3",
+                "layout" => "card",
+                "sm_col" => "12",
+                "md_col" => "4",
+                "xl_col" => "4",
+                "content" => '',
+                "created_at" => Carbon::now(),
+                "created_by" => 1,
+                "updated_at" => Carbon::now(),
+                "updated_by" => 1,
+            ],
+            [
+                "id" => 8,
+                "status" => 1,
+                "title" => "1",
+                "position" => "bottom",
+                "pages" => "3",
+                "layout" => "card",
+                "sm_col" => "12",
+                "md_col" => "4",
+                "xl_col" => "4",
+                "content" => '',
+                "created_at" => Carbon::now(),
+                "created_by" => 1,
+                "updated_at" => Carbon::now(),
+                "updated_by" => 1,
+            ],
+            [
+                "id" => 9,
+                "status" => 1,
+                "title" => "2",
+                "position" => "bottom",
+                "pages" => "3",
+                "layout" => "card",
+                "sm_col" => "12",
+                "md_col" => "4",
+                "xl_col" => "4",
+                "content" => '',
+                "created_at" => Carbon::now(),
+                "created_by" => 1,
+                "updated_at" => Carbon::now(),
+                "updated_by" => 1,
+            ],
+            [
+                "id" => 10,
+                "status" => 1,
+                "title" => "3",
+                "position" => "bottom",
+                "pages" => "3",
+                "layout" => "card",
+                "sm_col" => "12",
+                "md_col" => "4",
+                "xl_col" => "4",
+                "content" => '',
                 "created_at" => Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => Carbon::now(),
@@ -143,6 +235,14 @@ class ArticleContent extends Seeder
             ]
         ];
 
-        Module::insert($std_modules);
+        foreach ($std_modules as $module) {
+            $file_name = $module['position'] . '_' . $module['title'];
+            if (file_exists(storage_path("imports/" . $file_name . ".html"))) {
+                $module['content'] = file_get_contents(storage_path("imports/" . $file_name . ".html"));
+            }
+            $module['title'] = $module['position'] . ' ' . $module['title'];
+            Modules::insert($module);
+        }
+
     }
 }

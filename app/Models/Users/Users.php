@@ -4,6 +4,7 @@ namespace App\Models\Users;
 
 use App\Models\Countries\CountriesLanguages;
 use App\Models\Countries\CountriesZones;
+use App\Models\Settings\Settings;
 use App\Traits\DataTables;
 use App\Traits\ModelActionsBy;
 use App\Traits\ModelHelpers;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+class Users extends Authenticatable
 {
     use Notifiable, ModelHelpers, ModelActionsBy, UserAccess, DataTables;
 
@@ -64,19 +65,30 @@ class User extends Authenticatable
         'language_id' => 436,
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saved(function(Users $model)
+        {
+            if($model->roles()->count() == 0){
+                $model->addRole((int)Settings::get("default.user_role"));
+            }
+        });
+    }
 
     public function ResetPassword(){
-        return $this->hasOne(UserResetPassword::class, 'email', 'email');
+        return $this->hasOne(UsersResetPassword::class);
     }
 
     public function timezone()
     {
-        return $this->hasOne(CountriesZones::class, 'id', 'timezone_id');
+        return $this->hasOne(CountriesZones::class);
     }
 
     public function language()
     {
-        return $this->hasOne(CountriesLanguages::class, 'id', 'language_id');
+        return $this->hasOne(CountriesLanguages::class);
     }
 
 }

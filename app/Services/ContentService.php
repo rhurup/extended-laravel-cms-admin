@@ -48,9 +48,16 @@ class ContentService
             'footer' => __('Footer')
         ];
     }
+
+    public static function getModulesLayouts(){
+
+        return [
+            'raw' => __('Raw'),
+            'card' => __('Card')
+        ];
+    }
+
     public static function getBootstrapGrid(){
-
-
         return [
             2 => __('content.2_cols'),
             3 => __('content.3_cols'),

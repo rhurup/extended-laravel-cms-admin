@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Content;
+namespace App\Models;
 
 use App\Services\ContentService;
 use Carbon\Carbon;
@@ -8,16 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Module extends Model
+class Modules extends Model
 {
     use HasFactory, SoftDeletes;
-
-    /**
-     * Table name
-     *
-     * @var string
-     */
-    protected $table = 'content_modules';
 
     /**
      * The attributes that aren't mass assignable.
@@ -47,7 +40,7 @@ class Module extends Model
     {
         parent::boot();
 
-        static::creating(function(Module $model)
+        static::creating(function(Modules $model)
         {
             if ($model->created_at === null)
             {
@@ -59,7 +52,7 @@ class Module extends Model
             }
         });
 
-        static::saving(function(Module $model)
+        static::saving(function(Modules $model)
         {
             $model->updated_at = Carbon::now();
         });

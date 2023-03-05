@@ -13,9 +13,11 @@ class RenamePasswordResetTable extends Migration
      */
     public function up()
     {
-        Schema::rename("password_resets", "users_password_resets");
-        Schema::rename("password_reset_tokens", "users_password_reset_tokens");
-        Schema::rename("personal_access_tokens", "users_personal_access_tokens");
+        Schema::dropIfExists("password_resets");
+        //Schema::rename("password_resets", "users_reset_password");
+        Schema::rename("password_reset_tokens", "users_reset_password_tokens");
+        Schema::dropIfExists("personal_access_tokens");
+        //Schema::rename("personal_access_tokens", "users_personal_access_tokens");
 
     }
 

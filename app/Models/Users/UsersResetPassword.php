@@ -2,15 +2,14 @@
 
 namespace App\Models\Users;
 
-use App\Models\Acl\UserAclRole;
 use App\Models\BaseModel;
 
-class UserResetPassword extends BaseModel
+class UsersResetPassword extends BaseModel
 {
     /**
      * @var string
      */
-    protected $table = 'users_users_password_resets';
+    protected $table = 'users_reset_password';
 
     protected $primaryKey = 'email';
 
@@ -34,7 +33,7 @@ class UserResetPassword extends BaseModel
      */
     public function user()
     {
-        return $this->belongsTo(User::class, 'email', 'email');
+        return $this->belongsTo(Users::class, 'email', 'email');
     }
 
 }

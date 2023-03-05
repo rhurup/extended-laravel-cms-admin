@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Admin\Controllers\Content;
+namespace App\Admin\Controllers;
 
 use App\Models\Content\Articles;
-use App\Models\Content\Module;
+use App\Models\Content\Modules;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
@@ -30,7 +30,7 @@ class ModulesController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Module());
+        $grid = new Grid(new Modules());
         $grid->model()->orderBy('id', 'desc');
         $grid->column('id', __('ID'))->sortable();
 
@@ -40,6 +40,7 @@ class ModulesController extends AdminController
 
         $grid->column('title', __('Title'));
         $grid->column('position', __('Position'));
+        $grid->column('layout', __('Layout'));
 
         $grid->updated_by()->display(function($userId) {
             return Administrator::find($userId)->name;
@@ -77,7 +78,7 @@ class ModulesController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Module::findOrFail($id));
+        $show = new Show(Modules::findOrFail($id));
 
         $show->field('id', __('ID'));
         $show->field('created_at', __('Created at'));
@@ -93,7 +94,7 @@ class ModulesController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Module());
+        $form = new Form(new Modules());
 
         $pages = ContentService::getPages();
 
@@ -111,7 +112,10 @@ class ModulesController extends AdminController
         // The second column occupies 1/2 of the page width to the right
         $form->column(1/3, function ($form) use ($pages){
             $form->select("status")->options(ContentService::getStatuses());
+            $form->image("img");
+
             $form->select("position")->options(ContentService::getPositions())->default("top");
+            $form->select("layout")->options(ContentService::getModulesLayouts())->default("raw");
             $form->multipleSelect("pages")->options($pages)->default("*");
 
             $form->select("sm_col")->options(ContentService::getBootstrapGrid())->default(ContentService::DEFAULT_COLS);

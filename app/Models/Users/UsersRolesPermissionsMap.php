@@ -4,14 +4,14 @@ namespace App\Models\Users;
 
 use App\Models\BaseModel;
 
-class UserAclPermissionRole extends BaseModel
+class UsersRolesPermissionsMap extends BaseModel
 {
     /**
      * Table name
      *
      * @var string
      */
-    protected $table = 'acl_permissions_roles';
+    protected $table = 'users_roles_permissions_map';
 
     /**
      * The attributes that are mass assignable.
@@ -31,7 +31,7 @@ class UserAclPermissionRole extends BaseModel
      */
     public function permission()
     {
-        return $this->belongsTo(AclPermission::class);
+        return $this->belongsTo(UsersRolesPermissions::class);
     }
 
 
@@ -42,6 +42,6 @@ class UserAclPermissionRole extends BaseModel
      */
     public function role()
     {
-        return $this->belongsTo(UserAclRole::class);
+        return $this->belongsTo(UsersRolesMap::class);
     }
 }

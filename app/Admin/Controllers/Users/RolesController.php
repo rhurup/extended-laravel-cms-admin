@@ -3,8 +3,9 @@
 namespace App\Admin\Controllers\Users;
 
 use App\Models\Content\Articles;
-use App\Models\Users\User;
-use App\Models\Users\UserAclRole;
+use App\Models\Users\Users;
+use App\Models\Users\UsersRolesPermissions;
+use App\Models\Users\UsersRolesMap;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
@@ -30,7 +31,7 @@ class RolesController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new UserAclRole());
+        $grid = new Grid(new UsersRolesMap());
 
         $grid->model()->orderBy('id', 'desc');
 
@@ -38,6 +39,7 @@ class RolesController extends AdminController
 
         $grid->column('name', __('Name'));
         $grid->column('description', __('Beskrivelse'));
+        $grid->column('permissions', trans('admin.permission'))->pluck('name')->label();
 
         $grid->updated_at()->display(function($datetime) {
             return Carbon::parse($datetime)->format("d-m-Y");
@@ -71,7 +73,7 @@ class RolesController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(User::findOrFail($id));
+        $show = new Show(Users::findOrFail($id));
 
         $show->field('id', __('ID'));
         $show->field('created_at', __('Created at'));
@@ -87,14 +89,13 @@ class RolesController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new UserAclRole());
+        $form = new Form(new UsersRolesMap());
 
         // Add a form item to this column
         $form->hidden('id', __('ID'));
-        $form->hidden('created_by', __('Created By'))->default(Auth::user()->id);
-        $form->hidden('updated_by', __('Updated By'))->default(Auth::user()->id);
-        $form->text('email', __('Email'));
-        $form->password('password', __('Password'));
+        $form->text('name', __('Name'));
+        $form->text('description', __('Description'));
+        $form->listbox('permissions', trans('admin.permissions'))->options(UsersRolesPermissions::all()->pluck('key', 'id'));
 
         $form->tools(function (Form\Tools $tools) {
             // Disable `List` btn.

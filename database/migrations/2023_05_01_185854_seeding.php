@@ -20,6 +20,8 @@ return new class extends Migration
         \Illuminate\Support\Facades\Artisan::call('admin:import "reporter"');
         \Illuminate\Support\Facades\Artisan::call('admin:import "scheduling"');
 
+        \Illuminate\Support\Facades\Artisan::call('db:seed --class "SettingsTables"');
+
         \Illuminate\Support\Facades\Artisan::call('db:seed --class "UsersTables"');
 
         \Illuminate\Support\Facades\Artisan::call('db:seed --class "ArticleContent"');

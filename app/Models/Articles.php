@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Content;
+namespace App\Models;
 
 use App\Services\ContentService;
 use Carbon\Carbon;
@@ -11,13 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Articles extends Model
 {
     use HasFactory, SoftDeletes;
-
-    /**
-     * Table name
-     *
-     * @var string
-     */
-    protected $table = 'content_articles';
 
     /**
      * The attributes that aren't mass assignable.

@@ -2,24 +2,15 @@
 
 namespace App\Models\Users;
 
-use App\Models\Acl\UserAclRole;
 use App\Models\BaseModel;
 
-class UserRoles extends BaseModel
+class UsersRolesMap extends BaseModel
 {
-    /**
-     * @var string
-     */
-    protected $table = 'users_roles';
-
 
     protected $fillable = [
         'user_id',
         'role_id',
     ];
-
-
-
     /**
      * Get the user this map belongs to
      *
@@ -27,7 +18,7 @@ class UserRoles extends BaseModel
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Users::class);
     }
 
 
@@ -38,7 +29,7 @@ class UserRoles extends BaseModel
      */
     public function role()
     {
-        return $this->belongsTo(UserAclRole::class);
+        return $this->belongsTo(UsersRoles::class);
     }
 
 }

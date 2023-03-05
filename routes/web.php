@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function() {
     );
 });
 
-Route::get('/', 'App\Http\Controllers\Content\ArticleController@home')->name("home");
-Route::get('/{slug}', 'App\Http\Controllers\Content\ArticleController@index')->name("content");
+Route::get('/', 'App\Http\Controllers\ArticleController@home')->name("home");
+Route::get('/{slug}', 'App\Http\Controllers\ArticleController@index')->name("content");
 
-Route::fallback('App\Http\Controllers\Content\ArticleController@index');
+Route::fallback('App\Http\Controllers\ArticleController@index');

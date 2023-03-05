@@ -2,8 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Models\Content\Articles;
-use App\Models\Content\Module;
+use App\Models\Articles;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
@@ -36,7 +35,7 @@ class Modules extends Component
             $content = Articles::where("slug", "404")->first();
         }
 
-        $modules = Module::byContentId($content->id)->where("position", $this->position)->get();
+        $modules = \App\Models\Modules::byContentId($content->id)->where("position", $this->position)->get();
 
         return view('layout.modules', ['modules' => $modules ?? []]);
     }

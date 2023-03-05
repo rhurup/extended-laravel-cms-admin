@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists("content");
-        Schema::dropIfExists("content_articles");
-        Schema::dropIfExists("content_modules");
-        Schema::dropIfExists("content_menus");
-        Schema::dropIfExists("content_menus_roles");
+        Schema::dropIfExists("articles");
+        Schema::dropIfExists("modules");
+        Schema::dropIfExists("menus");
+        Schema::dropIfExists("menus_roles");
 
-        Schema::create('content_articles', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger("status")->default(0)->index();
             $table->string("slug", 255)->unique();
@@ -32,11 +31,13 @@ return new class extends Migration
             $table->integer("deleted_by")->default(0)->index();
         });
 
-        Schema::create('content_modules', function (Blueprint $table) {
+        Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger("status")->default(0)->index();
             $table->string("title", 255);
             $table->text("content");
+            $table->string("img", 255)->nullable();
+            $table->string("layout", 255)->default("card");
             $table->string("pages", 255)->default("*");
             $table->string("position", 255);
             $table->string("roles", 255)->default("*");
@@ -50,14 +51,13 @@ return new class extends Migration
             $table->integer("deleted_by")->default(0)->index();
         });
 
-        Schema::create('content_menus', function (Blueprint $table) {
+        Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id')->default(0);
             $table->integer('order')->default(0);
             $table->string('title', 50);
             $table->string('icon', 50);
             $table->string('uri')->nullable();
-            $table->string('permission')->nullable();
             $table->timestamps();
             $table->integer("created_by")->default(0)->index();
             $table->integer("updated_by")->default(0)->index();
@@ -65,10 +65,10 @@ return new class extends Migration
             $table->integer("deleted_by")->default(0)->index();
         });
 
-        Schema::create('content_menus_roles', function (Blueprint $table) {
-            $table->integer('role_id');
+        Schema::create('menu_roles_maps', function (Blueprint $table) {
             $table->integer('menu_id');
-            $table->index(['role_id', 'menu_id']);
+            $table->integer('users_roles_id');
+            $table->index(['users_roles_id', 'menu_id']);
             $table->timestamps();
         });
     }

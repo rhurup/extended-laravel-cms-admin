@@ -70,6 +70,20 @@ class MenuContent extends Seeder
                 "title" => "Log ind",
                 "icon" => "fa-bars",
                 "uri" => "/login",
+                "role" => "1",
+                "created_at" => \Carbon\Carbon::now(),
+                "created_by" => 1,
+                "updated_at" => \Carbon\Carbon::now(),
+                "updated_by" => 1,
+            ],
+            [
+                "id" => 6,
+                "parent_id" => 0,
+                "order" => 6,
+                "title" => "Profile",
+                "icon" => "fa-bars",
+                "uri" => "/profile",
+                "role" => "2",
                 "created_at" => \Carbon\Carbon::now(),
                 "created_by" => 1,
                 "updated_at" => \Carbon\Carbon::now(),
@@ -77,7 +91,21 @@ class MenuContent extends Seeder
             ],
         ];
 
-        \App\Models\Content\Menu::insert($menu_items);
+        foreach($menu_items as $menu_item){
+            $role = false;
+            if(isset($menu_item['role'])){
+                $role = (int)$menu_item['role'];
+                unset($menu_item['role']);
+            }
+
+            $saved_menu = \App\Models\Menu::create($menu_item);
+
+            if($role){
+                $saved_menu->roles()->attach($role);
+            }
+        }
+
+
 
         $admin_menu_item = Menu::query()->where('title', 'Admin')->first();
 

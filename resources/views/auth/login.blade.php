@@ -3,13 +3,6 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-4">
-            @if(App\Models\Settings\Settings::get('default.frontend_logo') !== "")
-                <img src="{{App\Models\Settings\Settings::get('default.frontend_logo')}}" class="img-fluid" />
-            @endif
-        </div>
-    </div>
-    <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
@@ -70,7 +63,7 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
-                                @if (App\Models\Settings\Settings::get('default.register_user_allowed'))
+                                @if (App\Models\Settings\Settings::get('default.user_register_allowed'))
                                     <a class="btn btn-primary" href="{{ route('register') }}">
                                         {{ __('Create user') }}
                                     </a>

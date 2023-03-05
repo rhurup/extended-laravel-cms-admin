@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Content;
+namespace App\Models;
 
 use App\Services\ContentService;
 use Carbon\Carbon;
@@ -9,16 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MenuRoles extends Model
+class MenuRolesMap extends Model
 {
     use HasFactory;
-
-    /**
-     * Table name
-     *
-     * @var string
-     */
-    protected $table = 'content_menus_roles';
-
 
 }

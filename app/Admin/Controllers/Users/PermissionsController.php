@@ -3,8 +3,8 @@
 namespace App\Admin\Controllers\Users;
 
 use App\Models\Content\Articles;
-use App\Models\Users\User;
-use App\Models\Users\UserAclPermission;
+use App\Models\Users\Users;
+use App\Models\Users\UsersRolesPermissions;
 use App\Services\ContentService;
 use Carbon\Carbon;
 use Encore\Admin\Auth\Database\Administrator;
@@ -30,7 +30,7 @@ class PermissionsController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new UserAclPermission());
+        $grid = new Grid(new UsersRolesPermissions());
 
         $grid->model()->orderBy('id', 'desc');
 
@@ -71,7 +71,7 @@ class PermissionsController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(UserAclPermission::findOrFail($id));
+        $show = new Show(UsersRolesPermissions::findOrFail($id));
 
         $show->field('id', __('ID'));
         $show->field('created_at', __('Created at'));
@@ -87,7 +87,7 @@ class PermissionsController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new UserAclPermission());
+        $form = new Form(new UsersRolesPermissions());
 
         // Add a form item to this column
         $form->hidden('id', __('ID'));

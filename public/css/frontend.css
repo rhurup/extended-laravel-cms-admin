@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 body,  a {
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: 19px;
     line-height: 33px;
 }
 body, body h1, body h2, body h3, body h4, body h5, body h6, p, span {
@@ -12,36 +12,49 @@ body, body h1, body h2, body h3, body h4, body h5, body h6, p, span {
     margin-bottom: 0em;
 }
 #site-top-menu > li {
-    height: 160px;
     background: #FFFFFF;
     outline: 0 none;
-    line-height: 70px;
+    min-width: 120px;
+    padding: 0em;
 }
 
 #site-top-menu > li > a {
     font-size: 18px;
-    margin-left: 20px;
-    margin-right: 20px;
     color: #000000!important;
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
-#site-top-menu > li > a > .sf-sub-indicator {
-    font-size: 18px;
+#site-top-menu > li > a > .underline{
+    color: #337ab7;
+    display:block;
+    content: '';
+    border-bottom: solid 2px #337ab7;
+    transform: scaleX(0);
+    transition: transform 250ms ease-in-out;
+}
+#site-top-menu > li:hover > a > .underline {
+    transform: scaleX(1);
+    transform-origin:  0% 50%;
+}
+
+
+#site-top-menu > li > a > .sf-sub-indicator{
+    font-size: 15px;
     height: auto;
     transition: color .2s ease;
+    margin-left: 15px;
+    color: #000000;
 }
-#site-top-menu > li.current > a > .sf-sub-indicator{
-    color: #ff2d2d;
-}
-#site-top-menu > li.sfHover > a > .sf-sub-indicator{
-    color: #ff2d2d;
-}
-#site-top-menu > li.sfHover > a > .menu-title-text:after{
-    border-bottom-color: #ff2d2d;
-    border-bottom-width: 1px;
+#site-top-menu > .sfHover > a > .sf-sub-indicator{
+    color: #337ab7;
+    transition: color .2s ease;
+    margin-left: 15px;
 }
 #site-top-menu > li > ul.sub-menu{
     background-color: rgba(255,255,255,100)!important;
     min-height: 150px;
+    width:240px;
     color: #000000;
 }
 #site-top-menu > li > ul.sub-menu > li{
@@ -50,7 +63,36 @@ body, body h1, body h2, body h3, body h4, body h5, body h6, p, span {
 }
 #site-top-menu > li > ul.sub-menu > li > a{
     color: #000000;
+    font-size: 16px;
 }
-#site-top-menu > li > ul.sub-menu > li:hover > a{
-    color: #ff2d2d;
+#site-top-menu > li > ul.sub-menu > li > a:hover{
+    color: #337ab7;
+}
+.footer{
+    margin-top: 150px;
+}
+.footer_list{
+    list-style: none;
+    padding: 0px;
+}
+.container-fluid.position-top{
+    margin-top: 50px;
+    margin-bottom: 130px;
+}
+.container-fluid.position-bottom{
+    padding-top: 100px;
+    padding-bottom: 100px;
+    margin-bottom: 100px;
+    margin-top: 100px;
+    background-color: rgba(178, 178, 178, 0.66);
+}
+
+p {
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 33px;
+    color: #000000;
+}
+h3{
+    color: #337ab7;
 }

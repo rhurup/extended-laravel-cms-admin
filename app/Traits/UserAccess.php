@@ -2,10 +2,10 @@
 
 namespace App\Traits;
 
-use App\Models\Acl\AclPermission;
-use App\Models\Acl\UserAclPermissionRole;
-use App\Models\Acl\UserAclRole;
-use App\Models\Users\UserRoles;
+use App\Models\Users\UsersRoles;
+use App\Models\Users\UsersRolesPermissions;
+use App\Models\Users\UsersRolesPermissionsMap;
+use App\Models\Users\UsersRolesMap;
 
 /**
  * Trait UserAccess
@@ -31,7 +31,7 @@ trait UserAccess
      */
     public function roles()
     {
-        return $this->belongsToMany(UserAclRole::class, UserRoles::class, 'user_id', 'role_id');
+        return $this->belongsToMany(UsersRoles::class, UsersRolesMap::class);
 
     }
 
@@ -44,16 +44,35 @@ trait UserAccess
      */
     public function permissions()
     {
-        return $this->hasManyThrough(
-            AclPermission::class,
-            UserAclPermissionRole::class,
-            'role_id',
-            'id',
-            'role_id',
-            'permission_id'
-        );
+        return $this->hasManyThrough(UsersRolesPermissions::class, UsersRolesPermissionsMap::class);
     }
 
+
+    /**
+     * Check if User has a Role associated.
+     *
+     * @param array $rolesToCheck The roles to check.
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public function hasRoleIds(array $rolesToCheck)
+    {
+        $hasRole = false;
+
+        $userroles = $this->roles;
+        if (!$userroles) {
+            return $hasRole;
+        }
+
+        foreach ($userroles as $userrole){
+            if (!in_array($userrole->id, $rolesToCheck)) {
+                continue;
+            }
+            $hasRole = $userrole->id;
+        }
+
+        return $hasRole;
+    }
 
     /**
      * Check if User has a Role associated.
@@ -71,7 +90,7 @@ trait UserAccess
             return $hasRole;
         }
 
-        $roles = UserAclRole::all();
+        $roles = UsersRoles::all();
 
         foreach ($roles as $role) {
             if ($role->name != $rolename) {
@@ -138,7 +157,7 @@ trait UserAccess
     {
         // Flatten input, look up models and discard non-existing models
         $roles = collect($input)->flatten()->map(function ($value) {
-            return UserAclRole::find((int)$value);
+            return UsersRoles::find((int)$value);
         })->reject(function ($value) {
             return empty($value);
         });
@@ -157,7 +176,7 @@ trait UserAccess
     {
         // Flatten input, look up models and discard non-existing models
         $roles = collect($input)->flatten()->map(function ($value) {
-            return UserAclRole::find((int)$value);
+            return UsersRoles::find((int)$value);
         })->reject(function ($value) {
             return empty($value);
         });
@@ -175,7 +194,7 @@ trait UserAccess
     {
         // Flatten input, look up models and discard non-existing models
         $roles = collect($input)->flatten()->map(function ($value) {
-            return UserAclRole::find((int)$value);
+            return UsersRoles::find((int)$value);
         })->reject(function ($value) {
             return empty($value);
         });

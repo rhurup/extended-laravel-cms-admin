@@ -14,7 +14,7 @@ class CreateAclAndUsersRoles extends Migration
     public function up()
     {
 
-        Schema::create('users_acl_permissions', function (Blueprint $table) {
+        Schema::create('users_roles_permissions', function (Blueprint $table) {
             $table->id();
             $table->string('group')->nullable(false);
             $table->string('key')->nullable(false);
@@ -24,7 +24,7 @@ class CreateAclAndUsersRoles extends Migration
             $table->bigInteger("deleted_by")->default(0);
         });
 
-        Schema::create('users_acl_roles', function (Blueprint $table) {
+        Schema::create('users_roles', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable(false);
             $table->string('description')->nullable(false);
@@ -34,19 +34,19 @@ class CreateAclAndUsersRoles extends Migration
         });
 
 
-        Schema::create('users_acl_permissions_roles', function (Blueprint $table) {
+        Schema::create('users_roles_permissions_map', function (Blueprint $table) {
             $table->unsignedBigInteger('permission_id');
-            $table->foreign('permission_id')->references('id')->on('users_acl_permissions');
+            $table->foreign('permission_id')->references('id')->on('users_roles_permissions');
             $table->unsignedBigInteger('role_id');
-            $table->foreign('role_id')->references('id')->on('users_acl_roles');
+            $table->foreign('role_id')->references('id')->on('users_roles');
         });
 
-        Schema::create('users_roles', function (Blueprint $table) {
+        Schema::create('users_roles_maps', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable(false);
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('role_id')->nullable(false);
-            $table->foreign('role_id')->references('id')->on('users_acl_roles');
+            $table->unsignedBigInteger('users_id')->nullable(false);
+            $table->foreign('users_id')->references('id')->on('users');
+            $table->unsignedBigInteger('users_roles_id')->nullable(false);
+            $table->foreign('users_roles_id')->references('id')->on('users_roles');
             $table->timestamps();
         });
 
@@ -60,5 +60,7 @@ class CreateAclAndUsersRoles extends Migration
     public function down()
     {
         Schema::dropIfExists('users_roles');
+        Schema::dropIfExists('users_roles_map');
+        Schema::dropIfExists('users_roles_permissions');
     }
 }

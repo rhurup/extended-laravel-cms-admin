@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function() {
         ['prefix' => 'profile'],
         function ($router) {
             $router->get('/', 'App\Http\Controllers\Profile\ProfileController@index')->name("profile.index_get");
+            $router->get('/edit', 'App\Http\Controllers\Profile\ProfileController@edit')->name("profile.edit_get");
         }
     );
 });

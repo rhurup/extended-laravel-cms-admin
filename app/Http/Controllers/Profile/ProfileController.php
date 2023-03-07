@@ -28,4 +28,17 @@ class ProfileController extends Controller
 
         return view("profile.index");
     }
+
+    /**
+     * Handle a profile edit request.
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    public function edit(Request $request)
+    {
+
+        return view("profile.edit");
+    }
 }

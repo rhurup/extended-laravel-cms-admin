@@ -37,26 +37,37 @@ class UsersTest extends Command
         $this->line("Testing user relations");
         $userRoles = $User->roles();
         if($userRoles->count() == 0){
-            sleep(1);
+            usleep(500);
             $this->line("Adding role: ".$role->name);
             $User->addRole($role->id);
         }else{
-            sleep(1);
+            usleep(500);
             $this->line("Removing role: ".$role->name);
             $User->removeRole($role->id);
 
         }
         $this->line("Removing permission ".$permission->key." from role: ".$role->name);
         $role->removePermission($permission->id);
-        sleep(1);
+        usleep(500);
         $this->line("Adding permission ".$permission->key." to role: ".$role->name);
         $role->addPermission($permission->id);
-        sleep(1);
+        usleep(500);
         $this->line("Adding role ".$role->name." to menu: ".$menu->title);
         $menu->roles()->attach($role->id);
-        sleep(1);
+        usleep(500);
         $this->line("Removing role ".$role->name." from menu: ".$menu->title);
         $menu->roles()->detach($role->id);
+
+        if(!$User->profile){
+            $this->line("User has no profile");
+            $User->profile()->create(['address' => 'o']);
+            $User->save();
+        }else{
+            $this->line("User has profile");
+            echo "<pre>";
+            var_dump($User->profile->toArray());
+            echo "</pre>";
+        }
 
     }
 }

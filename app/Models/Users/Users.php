@@ -74,6 +74,9 @@ class Users extends Authenticatable
             if($model->roles()->count() == 0){
                 $model->addRole((int)Settings::get("default.user_role"));
             }
+            if(!$model->profile){
+                $model->profile()->create(['address' => '']);
+            }
         });
     }
 
@@ -89,6 +92,11 @@ class Users extends Authenticatable
     public function language()
     {
         return $this->hasOne(CountriesLanguages::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(UsersProfile::class);
     }
 
 }

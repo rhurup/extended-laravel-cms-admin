@@ -1,8 +1,8 @@
 <div class="container-fluid">
     <div class="menu-container row">
         <div class="col-4">
-            @if(App\Models\Settings\Settings::get('default.frontend_logo') !== "")
-                <img src="{{env("APP_URL", "/")}}/{{App\Models\Settings\Settings::get('default.frontend_logo')}}" class="img-fluid" style="max-height: 160px" />
+            @if(App\Models\Settings\Settings::get('default.logo') !== "")
+                <img src="{{env("APP_URL")."/storage/".App\Models\Settings\Settings::get('default.logo')}}" class="img-fluid" style="max-height: 160px" />
             @endif
         </div>
         <div class="col-8">

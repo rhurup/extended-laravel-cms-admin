@@ -3,12 +3,11 @@
 namespace App\Models\Countries;
 
 use App\Models\BaseModel;
-use App\Traits\DataTables;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CountriesLanguages extends BaseModel
 {
-    use SoftDeletes, DataTables;
+    use SoftDeletes;
     /**
      * @var string
      */

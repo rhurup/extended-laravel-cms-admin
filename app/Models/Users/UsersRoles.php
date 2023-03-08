@@ -3,11 +3,12 @@
 namespace App\Models\Users;
 
 use App\Models\BaseModel;
-use App\Traits\DataTables;
+use Exception;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\hasManyThrough;
 
 class UsersRoles extends BaseModel
 {
-    use DataTables;
 
     /**
      * @var array
@@ -31,7 +32,7 @@ class UsersRoles extends BaseModel
     /**
      * Get the permissions this role has
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function permissions()
     {
@@ -42,7 +43,7 @@ class UsersRoles extends BaseModel
     /**
      * Get the users having this role
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasManyThrough
+     * @return hasManyThrough
      */
     public function users()
     {
@@ -64,7 +65,7 @@ class UsersRoles extends BaseModel
 
         try {
             $this->permissions()->attach($permissions->pluck('id'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // If one of the elements exists in advance, we could get a Duplicate entry exception. Lets not use that
         }
     }

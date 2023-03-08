@@ -30,8 +30,9 @@ return new class extends Migration
         Artisan::call('db:seed --class "MenuContent"');
 
 
-
-        Artisan::call('db:seed --class "Custom"');
+        if(file_exists(database_path("/seeders/CustomTables.php"))){
+            Artisan::call('db:seed --class "CustomTables"');
+        }
     }
 
     /**

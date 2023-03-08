@@ -2,16 +2,14 @@
 
 namespace App\Models\Settings;
 
-use App\Models\Acl\UserAclRole;
 use App\Models\BaseModel;
-use App\Traits\DataTables;
 use App\Traits\ModelActionsBy;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
 
 class Settings extends BaseModel
 {
-    use SoftDeletes, ModelActionsBy, DataTables;
+    use SoftDeletes, ModelActionsBy;
     /**
      * @var string
      */

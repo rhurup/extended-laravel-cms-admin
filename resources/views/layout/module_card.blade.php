@@ -3,8 +3,10 @@
         @if($module->img)
             <img src="{{env("APP_URL")."/storage/".$module->img}}" class="card-img-top" alt="{{$module->title}}">
         @endif
-        <div class="card-body">
-            {!! $module->content !!}
-        </div>
+        @if(trim($module->content) != "")
+            <div class="card-body">
+                {!! $module->content !!}
+            </div>
+        @endif
     </div>
 </div>

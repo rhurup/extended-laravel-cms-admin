@@ -39,7 +39,7 @@ class SettingsTables extends Seeder
             ],
             [
                 'key' => 'default.logo',
-                'value' => 'images/default_logo.svg',
+                'value' => 'images/logo.png',
                 'description' => 'Default logo',
                 'type' => 'image',
                 'locked' => 0

@@ -3,12 +3,10 @@
 namespace App\Models\Users;
 
 use App\Models\BaseModel;
-use App\Models\Users\Users;
-use App\Traits\DataTables;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class UsersRolesPermissions extends BaseModel
 {
-    use DataTables;
 
     /**
      * Table name
@@ -41,7 +39,7 @@ class UsersRolesPermissions extends BaseModel
     /**
      * Get the roles this permission exists in
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function roles()
     {

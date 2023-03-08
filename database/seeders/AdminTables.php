@@ -112,6 +112,13 @@ class AdminTables extends Seeder
             ],
             [
                 'parent_id' => 5,
+                'order'     => 5,
+                'title'     => 'Users',
+                'icon'      => 'fa-user-md',
+                'uri'       => 'users',
+            ],
+            [
+                'parent_id' => 5,
                 'order'     => 6,
                 'title'     => 'Roles',
                 'icon'      => 'fa-user',

@@ -5,7 +5,6 @@ namespace App\Models\Users;
 use App\Models\Countries\CountriesLanguages;
 use App\Models\Countries\CountriesZones;
 use App\Models\Settings\Settings;
-use App\Traits\DataTables;
 use App\Traits\ModelActionsBy;
 use App\Traits\ModelHelpers;
 use App\Traits\UserAccess;
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 
 class Users extends Authenticatable
 {
-    use Notifiable, ModelHelpers, ModelActionsBy, UserAccess, DataTables;
+    use Notifiable, ModelHelpers, ModelActionsBy, UserAccess;
 
     /**
      * The attributes that are mass assignable.
